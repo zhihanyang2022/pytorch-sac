@@ -6,9 +6,13 @@ TODO: algorithm screenshto and link from spinning up
 
 #### How to calculate <img src="https://render.githubusercontent.com/render/math?math=\log \pi_{\theta} (\tilde{a}_\theta(s)\mid s)"> properly?
 
-What confused me initially in this term is that both the action and the log-probability of the action depends on parameter theta. Can this enable proper backprop? To better understand this, I wrote the following snippet.
+What confused me initially in this term is that both the action and the log-probability of the action depends on parameter theta. Can this enable proper backprop? This sub-section serves to better understand this question.
 
-<img src="https://render.githubusercontent.com/render/math?math=\log \pi (a \mid s) = \log \mu (u \mid s) - \log (1 - \text{tanh}^2(u))">
+From the paper, we know that 
+
+<img src="https://render.githubusercontent.com/render/math?math=$$\log \pi (a \mid s) = \log \mu (u \mid s) - \log (1 - \text{tanh}^2(u))$$"> 
+
+where $\mu$ is a diagonal normal distribution (whose dimension depends on action dim) parametrized by means and standard deviations outputted by the policy network. Therefore, when computing the gradient 
 
 ```python
 import torch
