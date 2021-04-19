@@ -6,14 +6,16 @@ TODO: algorithm screenshto and link from spinning up
 
 ### How to perform step 14?
 
-What confused me initially $`a^2+b^2=c^2`$
+What confused me initially in this step is that, in the entropy term (the second term), both the action and the log-probability of the action depends on parameter theta. How can this be? To better understand this, I wrote the following snippet.
+
+Basically, you can see that the gradient with respect to the means 
 
 ```python
 import torch
 from torch.distributions import Normal, Independent
 
-means = torch.tensor([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]], dtype=torch.float).view(2, -1)
-stds  = torch.tensor([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]], dtype=torch.float).view(2, -1)
+means = torch.tensor([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]], dtype=torch.float).view(2, -1)  # two mean vectors
+stds  = torch.tensor([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]], dtype=torch.float).view(2, -1)  # two std vectors
 
 means.requires_grad = True
 stds.requires_grad = True
@@ -22,7 +24,7 @@ dist = Independent(Normal(loc=means, scale=stds), 1)
 
 print(dist.batch_shape, dist.event_shape)  # torch.Size([2]) torch.Size([5])
 
-samples_with_grad = dist.rsample(sample_shape=torch.Size([]))
+samples_with_grad = dist.rsample()  # rsample using reparameterization trick; use sample instead if you don't want samples to be back
 
 print(samples_with_grad.shape)  # torch.Size([2, 5])
 
