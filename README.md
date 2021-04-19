@@ -8,7 +8,7 @@ TODO: algorithm screenshto and link from spinning up
 
 What confused me initially $`a^2+b^2=c^2`$
 
-```{python}
+```python
 import torch
 from torch.distributions import Normal, Independent
 
