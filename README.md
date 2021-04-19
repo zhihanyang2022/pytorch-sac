@@ -4,9 +4,7 @@
 
 TODO: algorithm screenshto and link from spinning up
 
-### How to perform step 14?
-
-<img src="https://render.githubusercontent.com/render/math?math=\log \pi_{\theta} (\tilde{a}_\theta(s)\mid s)">
+### How to calculate <img src="https://render.githubusercontent.com/render/math?math=\log \pi_{\theta} (\tilde{a}_\theta(s)\mid s)"> properly?
 
 What confused me initially in this step is that, in the entropy term (the second term), both the action and the log-probability of the action depends on parameter theta. How can this be? To better understand this, I wrote the following snippet.
 
