@@ -10,7 +10,9 @@ What confused me initially in this term is that both the action and the log-prob
 
 From the paper, we know that 
 
-<center><img src="https://render.githubusercontent.com/render/math?math=\log \pi (a \mid s) = \log \mu (u \mid s) - \log (1 - \text{tanh}^2(u))"></center> 
+<p align="center">
+<img src="https://render.githubusercontent.com/render/math?math=\log \pi (a \mid s) = \log \mu (u \mid s) - \log (1 - \text{tanh}^2(u))">
+ </p>
 
 where $\mu$ is a diagonal normal distribution (whose dimension depends on action dim) parametrized by means and standard deviations outputted by the policy network. Therefore, when computing the gradient 
 
