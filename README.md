@@ -8,7 +8,7 @@ TODO: algorithm screenshto and link from spinning up
 
 What confused me initially in this term is that both the action and the log-probability of the action depends on parameter theta. Can this enable proper backprop? To better understand this, I wrote the following snippet.
 
-<img src="https://render.githubusercontent.com/render/math?math=\log \pi (a \mid s) = log \mu (u \mid s) - \log (1 - \text{tanh}^2(u))">
+<img src="https://render.githubusercontent.com/render/math?math=\log \pi (a \mid s) = \log \mu (u \mid s) - \log (1 - \text{tanh}^2(u))">
 
 ```python
 import torch
