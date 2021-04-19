@@ -14,9 +14,10 @@ From the paper, we know that
 <img src="https://render.githubusercontent.com/render/math?math=\log \pi (a \mid s) = \log \mu (u \mid s) - \log (1 - \text{tanh}^2(u))">
 </p>
 
-where <img src="https://render.githubusercontent.com/render/math?math=\mu"> is a diagonal normal distribution (whose dimension depends on action dim) parametrized by means and standard deviations outputted by the policy network.
+where <img src="https://render.githubusercontent.com/render/math?math=\mu"> is a diagonal normal distribution (whose dimension depends on action dim) parametrized by means and standard deviations outputted by the policy network. Therefore, when computing the gradient of <img src="https://render.githubusercontent.com/render/math?math=\log \pi (a \mid s)"> with respect to <img src="https://render.githubusercontent.com/render/math?math=\theta">, we are actually computing the gradients of the two terms and summing them up. This sub-section focuses on the gradient of the first term.
 
-Therefore, when computing the gradient of <img src="https://render.githubusercontent.com/render/math?math=\log \pi (a \mid s)"> with respect to <img src="https://render.githubusercontent.com/render/math?math=\theta">, we are computing the gradients with respect to the two terms and summing them up.
+Now, note that <img src="https://render.githubusercontent.com/render/math?math=u> is sampled using the reparametrization trick, which means that 
+
 
 ```python
 import torch
