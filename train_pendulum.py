@@ -1,8 +1,24 @@
 import gym
 from replay_buffer import ReplayBuffer, Transition
 from params_pool import ParamsPool
+from action_wrappers import AlgoToEnvActionScalingWrapper
 
-env = gym.make('MountainCarContinuous-v0')
+import wandb
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--run_id', type=int)
+args = parser.parse_args()
+
+wandb.init(
+    project='recurrent-ddpg-sac',
+    entity='pomdpr',
+    group='sac-pendulum-mdp',
+    settings=wandb.Settings(_disable_stats=True),
+    name=f'run_id={args.run_id}'
+)
+
+env = AlgoToEnvActionScalingWrapper(env=gym.make('Pendulum-v0'), scaling_factor=2)
 buf = ReplayBuffer(capacity=60000)
 param = ParamsPool(
     input_dim=env.observation_space.shape[0],
@@ -36,7 +52,6 @@ for e in range(num_episodes):
         # storing it to the buffer
         # ==================================================
 
-        reward += 13 * abs(next_obs[1])
         buf.push(Transition(obs, action, reward, next_obs, done))
 
         # ==================================================
@@ -59,6 +74,8 @@ for e in range(num_episodes):
     # after each episode
     # ==================================================
 
-    print(f'Episode {e:4.0f} | Return {total_reward:7.3f} | Updates {total_updates:4.0f}')
+    wandb.log({'return': total_reward})
+
+    print(f'Episode {e:4.0f} | Return {total_reward:9.3f} | Updates {total_updates:4.0f}')
 
 env.close()

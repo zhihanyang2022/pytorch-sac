@@ -10,7 +10,7 @@ def get_net(
         num_in:int,
         num_out:int,
         final_activation,  # e.g. nn.Tanh
-        num_hidden_layers:int=1,
+        num_hidden_layers:int=3,
         num_neurons_per_hidden_layer:int=64
     ) -> nn.Sequential:
 
