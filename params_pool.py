@@ -41,14 +41,25 @@ class NormalPolicyNet(nn.Module):
 
     def __init__(self, input_dim, action_dim):
         super(NormalPolicyNet, self).__init__()
-        self.shared_net = get_net(num_in=input_dim, num_out=64, final_activation=nn.ReLU())
-        self.means_net  = get_net(num_in=64, num_out=action_dim, final_activation=None)
-        self.stds_net   = get_net(num_in=64, num_out=action_dim, final_activation=nn.Softplus())
+        self.shared_net   = get_net(num_in=input_dim, num_out=64, final_activation=nn.ReLU())
+        self.means_net    = get_net(num_in=64, num_out=action_dim, final_activation=None)
+        self.log_stds_net = get_net(num_in=64, num_out=action_dim, final_activation=None)
 
     def forward(self, states: torch.tensor):
+
         out = self.shared_net(states)
-        means, stds = self.means_net(out), self.stds_net(out)
-        return Independent(Normal(loc=means, scale=torch.clamp(stds, 0.01, 10)), reinterpreted_batch_ndims=1)
+        means, log_stds = self.means_net(out), self.log_stds_net(out)
+
+        # the gradient of computing log_stds first and then using torch.exp
+        # is much more well-behaved then computing stds directly using nn.Softplus()
+        # ref: https://github.com/openai/spinningup/blob/master/spinup/algos/pytorch/sac/core.py#L26
+
+        LOG_STD_MAX = 2
+        LOG_STD_MIN = -20
+
+        stds = torch.exp(torch.clamp(log_stds, LOG_STD_MIN, LOG_STD_MAX))
+
+        return Independent(Normal(loc=means, scale=stds), reinterpreted_batch_ndims=1)
 
 class QNet(nn.Module):
 

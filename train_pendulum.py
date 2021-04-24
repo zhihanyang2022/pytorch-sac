@@ -36,7 +36,7 @@ if args.offline_rl:
     else:
         group_name_postfix = 'offline'
 else:
-    group_name_postfix = 'online-clamp'
+    group_name_postfix = 'online-clamp-largeBuffer'
 
 wandb.init(
     project='offline-rl',
@@ -49,7 +49,7 @@ wandb.init(
 # =================================================================================
 
 env = AlgoToEnvActionScalingWrapper(env=gym.make('Pendulum-v0'), scaling_factor=2)
-buf = ReplayBuffer(capacity=60000)
+buf = ReplayBuffer(capacity=int(1e6))
 param = ParamsPool(
     input_dim=env.observation_space.shape[0],
     action_dim=env.action_space.shape[0]
