@@ -25,6 +25,8 @@ SAC is a deep reinforcement learning algorithm for continuous control in discret
 
 ### Learning curves
 
+### Sensitivity to hyper-parameters
+
 ### Lessons learned
 
 - TODO: Do not use nn.softplus; show the gradient details
