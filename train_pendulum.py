@@ -6,17 +6,47 @@ from action_wrappers import AlgoToEnvActionScalingWrapper
 import wandb
 import argparse
 
+# =================================================================================
+# arguments
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--run_id', type=int)
+parser.add_argument('--offline_rl', action='store_true')  # default is false
+parser.add_argument('--cql', action='store_true')  # default is false
+parser.add_argument('--sil', action='store_true')
 args = parser.parse_args()
 
+if args.offline_rl is False:
+    assert args.cql is False, "You can't use CQL when doing online learning."
+
+if args.cql is False:
+    assert args.sil is False, "You can't use the SIL idea without CQL."
+
+# =================================================================================
+# logging
+
+group_name_base = 'pendulum-sac'
+
+if args.offline_rl:
+    if args.cql:
+        if args.sil:
+            group_name_postfix = 'offline-cql-sil'
+        else:
+            group_name_postfix = 'offline-cql'
+    else:
+        group_name_postfix = 'offline'
+else:
+    group_name_postfix = 'online'
+
 wandb.init(
-    project='recurrent-ddpg-sac',
-    entity='pomdpr',
-    group='sac-pendulum-mdp',
+    project='offline-rl',
+    entity='yangz2',
+    group=f'{group_name_base}-{group_name_postfix}',
     settings=wandb.Settings(_disable_stats=True),
     name=f'run_id={args.run_id}'
 )
+
+# =================================================================================
 
 env = AlgoToEnvActionScalingWrapper(env=gym.make('Pendulum-v0'), scaling_factor=2)
 buf = ReplayBuffer(capacity=60000)
@@ -24,6 +54,11 @@ param = ParamsPool(
     input_dim=env.observation_space.shape[0],
     action_dim=env.action_space.shape[0]
 )
+
+if args.offline_rl:
+    pass
+    # TODO: load dataset and push all transitions into the buffer
+    # TODO: increase the size of replay buffer if necessary
 
 batch_size = 64
 num_episodes = 1000
@@ -52,7 +87,8 @@ for e in range(num_episodes):
         # storing it to the buffer
         # ==================================================
 
-        buf.push(Transition(obs, action, reward, next_obs, done))
+        if args.offline_rl is False:
+            buf.push(Transition(obs, action, reward, next_obs, done))
 
         # ==================================================
         # update the parameters
