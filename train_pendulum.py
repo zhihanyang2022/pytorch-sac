@@ -36,7 +36,7 @@ if args.offline_rl:
     else:
         group_name_postfix = 'offline'
 else:
-    group_name_postfix = 'online'
+    group_name_postfix = 'online-clamp'
 
 wandb.init(
     project='offline-rl',

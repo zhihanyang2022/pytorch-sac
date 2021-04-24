@@ -48,7 +48,7 @@ class NormalPolicyNet(nn.Module):
     def forward(self, states: torch.tensor):
         out = self.shared_net(states)
         means, stds = self.means_net(out), self.stds_net(out)
-        return Independent(Normal(loc=means, scale=stds), reinterpreted_batch_ndims=1)
+        return Independent(Normal(loc=means, scale=torch.clamp(stds, 0.01, 10)), reinterpreted_batch_ndims=1)
 
 class QNet(nn.Module):
 
