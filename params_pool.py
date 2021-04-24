@@ -11,7 +11,7 @@ def get_net(
         num_in:int,
         num_out:int,
         final_activation,  # e.g. nn.Tanh
-        num_hidden_layers:int=3,
+        num_hidden_layers:int=5,
         num_neurons_per_hidden_layer:int=64
     ) -> nn.Sequential:
 
@@ -87,7 +87,7 @@ class ParamsPool:
     # ==================================================================================================================
 
     def min_i_12(self, a: torch.tensor, b: torch.tensor) -> torch.tensor:
-        return torch.minimum(a, b)
+        return torch.min(a, b)
 
     def sample_action_and_compute_log_pi(self, state: torch.tensor, use_reparametrization_trick: bool) -> tuple:
         mu_given_s = self.Normal(state)  # in paper, mu represents the normal distribution
