@@ -26,5 +26,5 @@ class ReplayBuffer(object):
         a  = torch.tensor(batch.a, dtype  = torch.float).view(batch_size, -1)  # continuous, multi-dim action
         r  = torch.tensor(batch.r, dtype  = torch.float).view(batch_size,  1)
         ns = torch.tensor(batch.ns, dtype = torch.float).view(batch_size, -1)
-        d  = torch.tensor(batch.d, dtype  = torch.long ).view(batch_size,  1)
+        d  = torch.tensor(batch.d, dtype  = torch.float).view(batch_size,  1)
         return Batch(s, a, r, ns, d)
