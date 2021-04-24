@@ -4,7 +4,7 @@
 
 *Here's a video (TODO) of me walking through the code.*
 
-*Feel free to ask me (or others) questions by submitting an issue. Please don't send me emails.*
+*Feel free to ask me (or others) questions by submitting an issue. I'm quite responsive.*
 
 ### What is SAC?
 
