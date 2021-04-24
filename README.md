@@ -16,7 +16,7 @@ SAC is a deep reinforcement learning algorithm for continuous control in discret
 - Style
   - Joshua's implementation 
 - Quality
-  - TODO: shown to work on a variety of tasks including mujoco
+  - TODO: shown to work on a variety of tasks including classical control task, and pybullet, and mujoco
   - Compared with Joshua's implementation
 
 ### Learning curves
