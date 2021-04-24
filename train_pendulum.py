@@ -1,3 +1,4 @@
+import time
 import gym
 from replay_buffer import ReplayBuffer, Transition
 from params_pool import ParamsPool
@@ -63,6 +64,8 @@ if args.offline_rl:
 batch_size = 64
 num_episodes = 1000
 
+start_time = time.perf_counter()
+
 for e in range(num_episodes):
 
     obs = env.reset()
@@ -112,6 +115,10 @@ for e in range(num_episodes):
 
     wandb.log({'return': total_reward})
 
-    print(f'Episode {e:4.0f} | Return {total_reward:9.3f} | Updates {total_updates:4.0f}')
+    after_episode_time = time.perf_counter()
+    time_elapsed = after_episode_time - start_time
+    time_remaining = time_elapsed / (e + 1) * (num_episodes - (e + 1))
+
+    print(f'Episode {e:4.0f} | Return {total_reward:9.3f} | Updates {total_updates:4.0f} | Remaining time {round(time_remaining / 3600, 2):5.2f} hours')
 
 env.close()

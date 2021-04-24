@@ -4,7 +4,7 @@ from torch.distributions import Normal, Independent
 torch.manual_seed(42)
 
 means = torch.tensor([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]], dtype=torch.float).view(2, -1)
-log_stds  = torch.tensor([[-100, 2, 3, 4, 5], [1, 2, 3, 4, 5]], dtype=torch.float).view(2, -1)
+log_stds  = torch.tensor([[-20, 2, 3, 4, 5], [1, 2, 3, 4, 5]], dtype=torch.float).view(2, -1)
 
 means.requires_grad = True
 log_stds.requires_grad = True

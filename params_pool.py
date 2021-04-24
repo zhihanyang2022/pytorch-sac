@@ -42,8 +42,8 @@ class NormalPolicyNet(nn.Module):
     def __init__(self, input_dim, action_dim):
         super(NormalPolicyNet, self).__init__()
         self.shared_net   = get_net(num_in=input_dim, num_out=64, final_activation=nn.ReLU())
-        self.means_net    = get_net(num_in=64, num_out=action_dim, final_activation=None)
-        self.log_stds_net = get_net(num_in=64, num_out=action_dim, final_activation=None)
+        self.means_net    = nn.Linear(64, action_dim)
+        self.log_stds_net = nn.Linear(64, action_dim)
 
     def forward(self, states: torch.tensor):
 
@@ -89,9 +89,9 @@ class ParamsPool:
         self.Q2_targ.load_state_dict(self.Q2.state_dict())
         self.Q2_optimizer = optim.Adam(self.Q2.parameters(), lr=1e-3)
 
-        self.gamma = 0.95
+        self.gamma = 0.99
         self.alpha = 0.1
-        self.polyak = 0.95
+        self.polyak = 0.995
 
     # ==================================================================================================================
     # Helper methods (it is generally not my style of using helper methods but here they improve readability)
@@ -162,6 +162,11 @@ class ParamsPool:
         # Step 14: learning the policy
         # ========================================
 
+        for param in self.Q1.parameters():
+            param.requires_grad = False
+        for param in self.Q2.parameters():
+            param.requires_grad = False
+
         a, log_pi_a_given_s = self.sample_action_and_compute_log_pi(b.s, use_reparametrization_trick=True)
         policy_loss = - torch.mean(self.min_i_12(self.Q1(b.s, a), self.Q2(b.s, a)) - self.alpha * log_pi_a_given_s)
 
@@ -170,12 +175,18 @@ class ParamsPool:
         self.clip_gradient(net=self.Normal)
         self.Normal_optimizer.step()
 
+        for param in self.Q1.parameters():
+            param.requires_grad = True
+        for param in self.Q2.parameters():
+            param.requires_grad = True
+
         # ========================================
         # Step 15: update target networks
         # ========================================
 
-        self.polyak_update(old_net=self.Q1_targ, new_net=self.Q1)
-        self.polyak_update(old_net=self.Q2_targ, new_net=self.Q2)
+        with torch.no_grad():
+            self.polyak_update(old_net=self.Q1_targ, new_net=self.Q1)
+            self.polyak_update(old_net=self.Q2_targ, new_net=self.Q2)
 
     def act(self, state: np.array) -> np.array:
         state = torch.tensor(state).unsqueeze(0).float()
