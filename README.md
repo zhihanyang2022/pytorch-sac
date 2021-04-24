@@ -4,6 +4,8 @@
 
 *Here's a video (TODO) of me walking through the code.*
 
+*Feel free to ask me (or others) questions by submitting an issue. Please don't send me emails.*
+
 ### What is SAC?
 
 SAC is a deep reinforcement learning algorithm for continuous control in discrete/continuous state spaces. It has a similar structure to "Q-learning" algorithms (those that utilize some form of Bellman update instead of the policy-gradient update) such as DDPG and TD3. It is inspired by the policy iteration algorithm under the maximum entropy RL framework. 
