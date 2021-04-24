@@ -8,7 +8,11 @@ SAC is a deep reinforcement learning algorithm for continuous control in discret
 
 ### Features of this implementation
 
-
+- Hyperparameters
+  - Learning rates, discount factor and polyak multiplier were borrowed from Joshua's implementation.
+  - No automatic entropy tuning, just like Joshua's implementation.
+- Style-related
+  - Slightly less modular than Joshua's implementation, which could be favorable to some people
 
 ### Learning curves
 
