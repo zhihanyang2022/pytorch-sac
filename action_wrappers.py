@@ -1,11 +1,13 @@
-
+import numpy as np
 import gym
 
-class AlgoToEnvActionScalingWrapper(gym.ActionWrapper):
+class ScalingActionWrapper(gym.ActionWrapper):
 
-    def __init__(self, env, scaling_factor):
-        super(AlgoToEnvActionScalingWrapper, self).__init__(env)
-        self.scaling_factor = scaling_factor
+    """Assumes that actions are symmetric about zero!!!"""
+
+    def __init__(self, env, scaling_factors: np.array):
+        super(ScalingActionWrapper, self).__init__(env)
+        self.scaling_factors = scaling_factors
 
     def action(self, action):
-        return self.scaling_factor * action
+        return self.scaling_factors * action

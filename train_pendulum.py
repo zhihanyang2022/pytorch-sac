@@ -1,8 +1,9 @@
 import time
 import gym
+from gym.wrappers import TimeLimit
 from replay_buffer import ReplayBuffer, Transition
 from params_pool import ParamsPool
-from action_wrappers import AlgoToEnvActionScalingWrapper
+from action_wrappers import ScalingActionWrapper
 
 import wandb
 import argparse
@@ -12,54 +13,28 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--run_id', type=int)
-parser.add_argument('--offline_rl', action='store_true')  # default is false
-parser.add_argument('--cql', action='store_true')  # default is false
-parser.add_argument('--sil', action='store_true')
 args = parser.parse_args()
-
-if args.offline_rl is False:
-    assert args.cql is False, "You can't use CQL when doing online learning."
-
-if args.cql is False:
-    assert args.sil is False, "You can't use the SIL idea without CQL."
 
 # =================================================================================
 # logging
 
-group_name_base = 'pendulum-sac'
-
-if args.offline_rl:
-    if args.cql:
-        if args.sil:
-            group_name_postfix = 'offline-cql-sil'
-        else:
-            group_name_postfix = 'offline-cql'
-    else:
-        group_name_postfix = 'offline'
-else:
-    group_name_postfix = 'online-clamp-largeBuffer'
-
 wandb.init(
     project='offline-rl',
     entity='yangz2',
-    group=f'{group_name_base}-{group_name_postfix}',
+    group=f'Pendulum-v0-sac',
     settings=wandb.Settings(_disable_stats=True),
     name=f'run_id={args.run_id}'
 )
 
 # =================================================================================
 
-env = AlgoToEnvActionScalingWrapper(env=gym.make('Pendulum-v0'), scaling_factor=2)
+env_raw = gym.make('Pendulum-v0')
+env = ScalingActionWrapper(env_raw, scaling_factors=env_raw.action_space.high)
 buf = ReplayBuffer(capacity=int(1e6))
 param = ParamsPool(
     input_dim=env.observation_space.shape[0],
     action_dim=env.action_space.shape[0]
 )
-
-if args.offline_rl:
-    pass
-    # TODO: load dataset and push all transitions into the buffer
-    # TODO: increase the size of replay buffer if necessary
 
 batch_size = 64
 num_episodes = 1000
@@ -90,8 +65,7 @@ for e in range(num_episodes):
         # storing it to the buffer
         # ==================================================
 
-        if args.offline_rl is False:
-            buf.push(Transition(obs, action, reward, next_obs, done))
+        buf.push(Transition(obs, action, reward, next_obs, done))
 
         # ==================================================
         # update the parameters
@@ -113,7 +87,7 @@ for e in range(num_episodes):
     # after each episode
     # ==================================================
 
-    wandb.log({'return': total_reward})
+    #wandb.log({'return': total_reward})
 
     after_episode_time = time.perf_counter()
     time_elapsed = after_episode_time - start_time

@@ -2,10 +2,6 @@
 
 *Special thanks to Joshua Achiam for creating OpenAI Spinning Up, which was the primary resource that enabled me to code up this implementation. In particular, his organized [pseudo-code](https://spinningup.openai.com/en/latest/algorithms/sac.html#pseudocode) and minimalistic PyTorch [implementation](https://github.com/openai/spinningup/tree/master/spinup/algos/pytorch/sac) were most helpful to me. Please check them out.*
 
-*Here's a video (TODO) of me walking through the code.*
-
-*Feel free to ask me (or others) questions by submitting an issue. I'm quite responsive.*
-
 ### Table of content
 
 ### What is SAC?
@@ -25,7 +21,7 @@ SAC is a deep reinforcement learning algorithm for continuous control in discret
 
 ### Learning curves
 
-### Sensitivity to hyper-parameters
+<img src="results/training_returns_svg/Pendulum-v0.svg">
 
 ### Lessons learned
 
