@@ -4,23 +4,17 @@
 
 Training returns             |  Expert policy
 :-------------------------:|:-------------------------:
-![](/results/training_returns_svg/Pendulum-v0.svg)  |  ![](/results/trained_policies_video/5/openaigym.video.0.43160.video000000.mp4)
+![](/results/training_returns_svg/Pendulum-v0.svg)  |  
 
 ### What is SAC?
 
 SAC is a deep reinforcement learning algorithm for continuous control in discrete/continuous state spaces. It has a similar structure to "Q-learning" algorithms (those that utilize some form of Bellman update instead of the policy-gradient update) such as DDPG and TD3. It is inspired by the policy iteration algorithm under the maximum entropy RL framework. 
 
-### Features of this implementation
+### Hyper-parameters
 
-- Hyper-parameters
-  - Learning rates, discount factor and polyak multiplier were borrowed from Joshua's implementation.
-  - No automatic entropy tuning, just like Joshua's implementation.
-  - Update rate: one gradient step per environment step
-- Style
-  - Joshua's implementation 
-- Quality
-  - TODO: shown to work on a variety of tasks including classical control task, and pybullet, and mujoco
-  - Compared with Joshua's implementation
+- Learning rates, discount factor and polyak multiplier are borrowed from Joshua's implementation.
+- No automatic entropy tuning, just like Joshua's implementation.
+- Update rate is one gradient step per environment step; Joshua's implementation uses one gradient step per 50 environment steps
 
 ### How to get it running on your computer?
 
