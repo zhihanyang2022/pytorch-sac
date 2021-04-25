@@ -4,11 +4,9 @@
 
 Training returns             |  Expert policy
 :-------------------------:|:-------------------------:
-<<<<<<< HEAD
-![](/results/training_returns_svg/Pendulum-v0.svg)  |  
-=======
 ![](/results/training_returns_svg/Pendulum-v0.svg)  | ![](https://user-images.githubusercontent.com/43589364/115995390-90db2a00-a60d-11eb-91b5-d0dc41f74de8.mp4)
->>>>>>> e16beb98ca602f4c34623a5c8b8a3a746ba5bb9b
+
+5 seeds are plotted above.
 
 ### What is SAC?
 

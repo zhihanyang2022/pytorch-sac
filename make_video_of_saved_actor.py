@@ -21,7 +21,7 @@ def make_video_of_saved_actor(save_dir: str, filename: str) -> None:
         input_dim=env.observation_space.shape[0],
         action_dim=env.action_space.shape[0]
     )
-    param.load_actor(save_dir=save_dir, filename=filename)
+    param.load_actor(save_dir=save_dir, filename=filename)  # critics are not loaded and act does not depend on them
 
     obs = env.reset()
 
@@ -31,3 +31,12 @@ def make_video_of_saved_actor(save_dir: str, filename: str) -> None:
         obs = next_obs
 
     env.close()
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--run_id', type=int)
+    args = parser.parse_args()
+    make_video_of_saved_actor(
+        save_dir='results/trained_policies_pth',
+        filename=f'{args.run_id}.png'
+    )
