@@ -1,7 +1,5 @@
 # Soft actor-critic on Pendulum-v0
 
-*Special thanks to Joshua Achiam for creating OpenAI Spinning Up, which was the primary resource that enabled me to code up this implementation. In particular, his organized [pseudo-code](https://spinningup.openai.com/en/latest/algorithms/sac.html#pseudocode) and minimalistic PyTorch [implementation](https://github.com/openai/spinningup/tree/master/spinup/algos/pytorch/sac) were most helpful to me. Please check them out.*
-
 Training returns             |  Expert policy
 :-------------------------:|:-------------------------:
 ![](/results/training_returns_svg/Pendulum-v0.svg)  | ![](https://user-images.githubusercontent.com/43589364/115995390-90db2a00-a60d-11eb-91b5-d0dc41f74de8.mp4)
@@ -17,6 +15,8 @@ SAC is a deep reinforcement learning algorithm for continuous control in discret
 - Learning rates, discount factor and polyak multiplier are borrowed from Joshua's implementation.
 - No automatic entropy tuning, just like Joshua's implementation.
 - Update rate is one gradient step per environment step; Joshua's implementation uses one gradient step per 50 environment steps
+
+*Special thanks to Joshua Achiam for creating OpenAI Spinning Up, which was the primary resource that enabled me to code up this implementation. In particular, his organized [pseudo-code](https://spinningup.openai.com/en/latest/algorithms/sac.html#pseudocode) and minimalistic PyTorch [implementation](https://github.com/openai/spinningup/tree/master/spinup/algos/pytorch/sac) were most helpful to me. Please check them out.*
 
 ### How to get it running on your computer?
 
