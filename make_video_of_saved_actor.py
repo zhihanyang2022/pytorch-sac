@@ -38,5 +38,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
     make_video_of_saved_actor(
         save_dir='results/trained_policies_pth',
-        filename=f'{args.run_id}.png'
+        filename=f'{args.run_id}.pth'
     )
