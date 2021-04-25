@@ -4,6 +4,7 @@ from gym.wrappers import TimeLimit
 from replay_buffer import ReplayBuffer, Transition
 from params_pool import ParamsPool
 from action_wrappers import ScalingActionWrapper
+from make_video_of_saved_actor import make_video_of_saved_actor
 
 import wandb
 import argparse
@@ -96,6 +97,11 @@ for e in range(num_episodes):
     print(f'Episode {e:4.0f} | Return {total_reward:9.3f} | Updates {total_updates:4.0f} | Remaining time {round(time_remaining / 3600, 2):5.2f} hours')
 
 param.save_actor(
+    save_dir='results/trained_policies_pth/',
+    filename=f'{args.run_id}.pth'
+)
+
+make_video_of_saved_actor(
     save_dir='results/trained_policies_pth/',
     filename=f'{args.run_id}.pth'
 )

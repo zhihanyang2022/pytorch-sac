@@ -2,7 +2,9 @@
 
 *Special thanks to Joshua Achiam for creating OpenAI Spinning Up, which was the primary resource that enabled me to code up this implementation. In particular, his organized [pseudo-code](https://spinningup.openai.com/en/latest/algorithms/sac.html#pseudocode) and minimalistic PyTorch [implementation](https://github.com/openai/spinningup/tree/master/spinup/algos/pytorch/sac) were most helpful to me. Please check them out.*
 
-<img src="results/training_returns_svg/Pendulum-v0.svg">
+Training returns             |  Expert policy
+:-------------------------:|:-------------------------:
+![](/results/training_returns_svg/Pendulum-v0.svg)  |  ![](/results/trained_policies_videos/5/openaigym.video.0.43160.video000000.mp4)
 
 ### What is SAC?
 
