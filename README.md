@@ -2,7 +2,7 @@
 
 Training returns             |  Expert policy
 :-------------------------:|:-------------------------:
-![](/results/training_returns_svg/Pendulum-v0.svg)  | ![](https://user-images.githubusercontent.com/43589364/115995390-90db2a00-a60d-11eb-91b5-d0dc41f74de8.mp4)
+![](/results/training_returns_svg/Pendulum-v0.svg)  | ![expert](https://user-images.githubusercontent.com/43589364/115996873-9d628100-a613-11eb-9219-d275ee9c1e7f.gif)
 
 5 seeds are plotted above.
 
