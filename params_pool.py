@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import torch
 import torch.nn as nn
@@ -192,6 +193,14 @@ class ParamsPool:
         state = torch.tensor(state).unsqueeze(0).float()
         action, _ = self.sample_action_and_compute_log_pi(state, use_reparametrization_trick=False)
         return action.numpy()[0]  # no need to detach first because we are not using the reparametrization trick
+
+    def save_actor(self, save_dir: str, filename: str) -> None:
+        os.makedirs(save_dir, exist_ok=True)
+        torch.save(self.Normal.state_dict(), os.path.join(save_dir, filename))
+
+    def load_actor(self, save_dir: str, filename: str) -> None:
+        self.Normal.load_state_dict(torch.load(os.path.join(save_dir, filename)))
+
 
 
 
