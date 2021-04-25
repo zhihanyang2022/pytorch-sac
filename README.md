@@ -1,8 +1,8 @@
 # Soft actor-critic on Pendulum-v0
 
-Training returns             |  Expert policy
+Training returns             |  Example expert policy
 :-------------------------:|:-------------------------:
-![](/results/training_returns_svg/Pendulum-v0.svg)  | ![expert](https://user-images.githubusercontent.com/43589364/115996873-9d628100-a613-11eb-9219-d275ee9c1e7f.gif)
+![](/results/training_returns_svg/Pendulum-v0.svg)  | ![expert](https://user-images.githubusercontent.com/43589364/115996873-9d628100-a613-11eb-9219-d275ee9c1e7f.gif | width=100)
 
 5 seeds are plotted above.
 
