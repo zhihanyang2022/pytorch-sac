@@ -1,4 +1,4 @@
-# Soft actor-critic on Pendulum-v0
+# Soft actor-critic on Pendulum-v0 with PyTorch
 
 Training returns             |  Example expert policy
 :-------------------------:|:-------------------------:
