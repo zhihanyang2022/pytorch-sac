@@ -4,7 +4,7 @@
 
 Training returns             |  Expert policy
 :-------------------------:|:-------------------------:
-![](/results/training_returns_svg/Pendulum-v0.svg)  |  ![](/results/trained_policies_videos/5/openaigym.video.0.43160.video000000.mp4)
+![](/results/training_returns_svg/Pendulum-v0.svg)  |  ![](/results/trained_policies_video/5/openaigym.video.0.43160.video000000.mp4)
 
 ### What is SAC?
 
