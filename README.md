@@ -25,6 +25,8 @@ SAC is a deep reinforcement learning algorithm for continuous control in discret
 
 ### Learning curves
 
+- TODO: pendulum-v0, acrobot-v0 (I modified it to have continuous actions), cartpole-v0 (modified to have continuous actions)
+
 ### Sensitivity to hyper-parameters
 
 ### Lessons learned
