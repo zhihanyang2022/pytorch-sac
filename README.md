@@ -1,6 +1,6 @@
 # Soft actor-critic on Pendulum-v0 with PyTorch
 
-Training returns             |  Example expert policy
+Training returns             |  Example expert trajectory
 :-------------------------:|:-------------------------:
 <img src="/results/training_returns_svg/Pendulum-v0.svg" height="300"/>  | <img src="https://user-images.githubusercontent.com/43589364/115996873-9d628100-a613-11eb-9219-d275ee9c1e7f.gif" width="300"/>
 
